@@ -1,0 +1,24 @@
+[package]
+name = "jetsa"
+version = "0.1.0"
+edition = "2021"
+description = "Convert FAA MVA XML to GeoJSON"
+repository = "https://github.com/brianknight10/jetsa"
+
+[[bin]]
+name = "jetsa"
+path = "src/main.rs"
+
+[dependencies]
+# Handle errors easily and idiomatically
+anyhow = "1.0"
+# Parse command line arguments
+clap = { version = "4.5.23", features = ["derive", "string"] }
+# Manage geometric coordinates and polygons
+geo = "0.29.3"
+# Write GeoJSON format
+geojson = "0.24.1"
+# Deserialize XML
+quick-xml = { version = "0.37.2", features = ["serialize"] }
+# Deserialize XML
+serde = { version = "1.0", features = ["derive"] }
