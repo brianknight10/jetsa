@@ -8,8 +8,9 @@ use clap::Parser;
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
 pub struct Cli {
-    #[arg(short, long, default_value_t = 0.0)]
-    pub magnetic: f64,
+    #[arg(short, long, allow_negative_numbers = true, default_value_t = 0.0)]
+    /// Magnetic variation in degrees, positive values indicate east
+    pub magnetic_variation: f64,
 
     /// Name of the output map
     #[arg(short, long)]
@@ -23,7 +24,7 @@ pub struct Cli {
 fn main() -> Result<()> {
     let args = Cli::parse();
 
-    convert(args.source, args.name, args.magnetic)?;
+    convert(args.source, args.name, args.magnetic_variation)?;
 
     Ok(())
 }
