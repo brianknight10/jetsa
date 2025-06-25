@@ -48,3 +48,8 @@ $ jetsa -n L30 -s L30_MVA_FUS3_2024.xml -m 10
 
 ## License
 This project is licensed under the [GPLv3 License](LICENSE).
+
+## Credits and Acknowledgements
+
+- [Justin Shannon](https://github.com/justinshannon) and [faa-mva-to-sector-file](https://github.com/justinshannon/faa-mva-to-sector-file)
+- [GeoRust](https://georust.org/) community and code ecosystem
