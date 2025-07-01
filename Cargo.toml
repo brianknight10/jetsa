@@ -19,6 +19,6 @@ geo = "0.30.0"
 # Write GeoJSON format
 geojson = "0.24.2"
 # Deserialize XML
-quick-xml = { version = "0.37.5", features = ["serialize"] }
+quick-xml = { version = "0.38.0", features = ["serialize"] }
 # Deserialize XML
 serde = { version = "1.0", features = ["derive"] }
