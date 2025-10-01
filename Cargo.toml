@@ -13,12 +13,12 @@ path = "src/main.rs"
 # Handle errors easily and idiomatically
 anyhow = "1.0"
 # Parse command line arguments
-clap = { version = "4.5.40", features = ["derive", "string"] }
+clap = { version = "4.5.48", features = ["derive", "string"] }
 # Manage geometric coordinates and polygons
-geo = "0.30.0"
+geo = "0.31.0"
 # Write GeoJSON format
 geojson = "0.24.2"
 # Deserialize XML
-quick-xml = { version = "0.37.5", features = ["serialize"] }
+quick-xml = { version = "0.38.3", features = ["serialize"] }
 # Deserialize XML
 serde = { version = "1.0", features = ["derive"] }
