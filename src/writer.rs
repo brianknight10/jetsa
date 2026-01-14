@@ -5,8 +5,9 @@ use std::io::{BufWriter, Write};
 
 use anyhow::Result;
 use geojson::{Feature, FeatureCollection, Geometry};
+use geo::Point;
 
-pub fn write(map: Map) -> Result<()> {
+pub fn write(map: Map, text_labels: bool) -> Result<()> {
     let output = File::create(output_name(&map.name))?;
     let mut writer = BufWriter::new(output);
 
@@ -40,18 +41,41 @@ pub fn write(map: Map) -> Result<()> {
         }
     }
 
-    let mut labels = map.digits.iter();
-    while let Some(label) = labels.next() {
-        for line in &label.lines {
-            let coords: Vec<Vec<f64>> = line.iter().map(|c| vec![c.x, c.y]).collect();
-            let g = Geometry::new(geojson::Value::LineString(coords));
-            features.push(Feature {
-                bbox: None,
-                foreign_members: None,
-                geometry: Some(g),
-                id: None,
-                properties: None,
-            });
+    if text_labels {
+        // Output labels as text points
+        let mut labels = map.digits.iter();
+        while let Some(label) = labels.next() {
+            if let Some(first_coord) = label.lines.first().and_then(|line| line.first()) {
+                let point = Point::new(first_coord.x, first_coord.y);
+                let g = Geometry::new(geojson::Value::Point(vec![point.x(), point.y()]));
+                
+                let mut properties = serde_json::Map::new();
+                properties.insert("text".to_string(), serde_json::json!([label.text.clone()]));
+                
+                features.push(Feature {
+                    bbox: None,
+                    foreign_members: None,
+                    geometry: Some(g),
+                    id: None,
+                    properties: Some(properties),
+                });
+            }
+        }
+    } else {
+        // Output labels as drawn lines
+        let mut labels = map.digits.iter();
+        while let Some(label) = labels.next() {
+            for line in &label.lines {
+                let coords: Vec<Vec<f64>> = line.iter().map(|c| vec![c.x, c.y]).collect();
+                let g = Geometry::new(geojson::Value::LineString(coords));
+                features.push(Feature {
+                    bbox: None,
+                    foreign_members: None,
+                    geometry: Some(g),
+                    id: None,
+                    properties: None,
+                });
+            }
         }
     }
 

@@ -19,12 +19,16 @@ pub struct Cli {
     #[arg(short, long)]
     /// Path of the FAA XML file
     pub source: PathBuf,
+
+    #[arg(short, long)]
+    /// Output labels as text points instead of drawn lines
+    pub text_labels: bool,
 }
 
 fn main() -> Result<()> {
     let args = Cli::parse();
 
-    convert(args.source, args.name, args.magnetic_variation)?;
+    convert(args.source, args.name, args.magnetic_variation, args.text_labels)?;
 
     Ok(())
 }
