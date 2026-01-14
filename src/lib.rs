@@ -14,13 +14,13 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-pub fn convert(source: PathBuf, name: String, mag_var: f64) -> Result<()> {
+pub fn convert(source: PathBuf, name: String, mag_var: f64, text_labels: bool) -> Result<()> {
     println!("[jetsa] Parsing source XML file...");
     let aixm = fs::read_to_string(source)?;
 
     println!("[jetsa] Writing GeoJSON file...");
     let map = Map::build(aixm, name, mag_var)?;
-    writer::write(map)?;
+    writer::write(map, text_labels)?;
 
     println!("[jetsa] Complete!");
 

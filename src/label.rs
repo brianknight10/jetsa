@@ -8,6 +8,7 @@ use geo::{coord, Centroid, Coord};
 
 pub struct Label {
     pub lines: Vec<Vec<Coord>>,
+    pub text: String,
 }
 
 pub fn create(polys: &[Poly], mag_var: f64) -> Result<Vec<Label>> {
@@ -76,7 +77,7 @@ pub fn create(polys: &[Poly], mag_var: f64) -> Result<Vec<Label>> {
             }
         }
 
-        let label = Label { lines: digits };
+        let label = Label { lines: digits, text: mva.clone() };
         labels.push(label);
     }
 
